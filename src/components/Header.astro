@@ -1,0 +1,100 @@
+---
+import { nav } from '../data/site';
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 text-on-dark transition-[background-color,color,border-color] duration-500 border-b border-transparent"
+>
+  <div class="wrap flex h-18 items-center justify-between lg:h-20">
+    <a href="#inicio" class="flex flex-col leading-none" aria-label="Fernanda Galantini, arquitecta — inicio">
+      <span class="whitespace-nowrap font-display text-[20px] tracking-[0.14em] uppercase sm:text-[22px]">Fernanda Galantini</span>
+      <span class="mt-1 font-mono text-[9.5px] tracking-[0.32em] uppercase opacity-75">Arquitectura integral</span>
+    </a>
+
+    <nav class="hidden xl:block" aria-label="Principal">
+      <ul class="flex items-center gap-7 whitespace-nowrap text-[12px] font-medium uppercase tracking-[0.15em]">
+        {nav.map((item) => (
+          <li><a href={item.href} class="link-underline pb-1">{item.label}</a></li>
+        ))}
+        <li><a href="#contacto" class="btn btn-ghost-light !px-5 !py-3 header-cta">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <button
+      id="menu-toggle"
+      class="relative -mr-2 flex h-11 w-11 items-center justify-center xl:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Abrir menú"
+    >
+      <span class="menu-bar absolute h-px w-6 bg-current transition-transform duration-500 -translate-y-1"></span>
+      <span class="menu-bar absolute h-px w-6 bg-current transition-transform duration-500 translate-y-1"></span>
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="pointer-events-none fixed inset-0 top-18 bg-night text-on-dark opacity-0 transition-opacity duration-500 lg:top-20 xl:hidden"
+  >
+    <nav class="wrap flex h-full flex-col justify-between pb-10 pt-10" aria-label="Móvil">
+      <ul class="space-y-1">
+        {[...nav, { href: '#contacto', label: 'Contacto' }].map((item, i) => (
+          <li class="border-b border-white/10">
+            <a href={item.href} class="flex items-baseline gap-5 py-5">
+              <span class="font-mono text-[11px] tracking-[0.2em] text-sand">{String(i + 1).padStart(2, '0')}</span>
+              <span class="font-display text-[34px] uppercase tracking-[0.08em] font-light">{item.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="signature text-on-dark/60">Fernanda Galantini · Arquitecta</p>
+    </nav>
+  </div>
+</header>
+
+<style>
+  #site-header.is-solid {
+    background-color: color-mix(in srgb, var(--color-paper) 92%, transparent);
+    backdrop-filter: blur(12px);
+    color: var(--color-ink);
+    border-color: var(--color-line);
+  }
+  #site-header.is-solid .header-cta {
+    color: var(--color-ink);
+  }
+  #site-header.is-solid .header-cta:hover {
+    background: var(--color-ink);
+    color: var(--color-on-dark);
+  }
+  #site-header.menu-open {
+    background-color: var(--color-night);
+    color: var(--color-on-dark);
+    border-color: transparent;
+  }
+  #site-header.menu-open #mobile-menu {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #site-header.menu-open .menu-bar:first-child { transform: rotate(45deg); }
+  #site-header.menu-open .menu-bar:last-child { transform: rotate(-45deg); }
+</style>
+
+<script>
+  const header = document.getElementById('site-header')!;
+  const toggle = document.getElementById('menu-toggle')!;
+  const menu = document.getElementById('mobile-menu')!;
+
+  const onScroll = () => header.classList.toggle('is-solid', window.scrollY > window.innerHeight * 0.75);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const setOpen = (open: boolean) => {
+    header.classList.toggle('menu-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  toggle.addEventListener('click', () => setOpen(!header.classList.contains('menu-open')));
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+</script>

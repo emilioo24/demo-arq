@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import obra from '../assets/img/obra.jpg';
+
+const steps = [
+  { t: 'Relevamiento', d: 'Visito el terreno o la propiedad, escucho qué necesitás y definimos juntos alcance y presupuesto estimado.' },
+  { t: 'Anteproyecto', d: 'Primeras ideas en planta, volumen y renders para que veas tu casa antes de que exista.' },
+  { t: 'Documentación técnica', d: 'Planos de obra, detalles, planillas de terminaciones y legajo municipal completo.' },
+  { t: 'Presupuesto por etapas', d: 'Cotizo con gremios de confianza y armamos un cronograma de pagos claro.' },
+  { t: 'Dirección de obra', d: 'Coordino, controlo calidad y plazos, y te reporto el avance cada semana.' },
+  { t: 'Entrega', d: 'Revisión final, detalles y la parte más linda: entregarte las llaves.' },
+];
+---
+
+<section id="proceso" class="section bg-cream">
+  <div class="wrap">
+    <div class="grid gap-8 lg:grid-cols-12">
+      <div class="lg:col-span-5 lg:sticky lg:top-32 lg:self-start">
+        <p class="eyebrow reveal">Cómo trabajo</p>
+        <h2 class="h2-editorial mt-5 reveal" style="--d:100ms">
+          Nadie te muestra esta parte del proceso.
+          <span class="mt-2 block font-display text-[1.25em] italic text-brown">Yo sí.</span>
+        </h2>
+        <p class="mt-6 max-w-md text-ink/75 reveal" style="--d:180ms">
+          Seis etapas claras, con entregables concretos en cada una. Sin sorpresas y sin letra chica.
+        </p>
+        <div class="zoom relative mt-10 hidden aspect-[4/3] overflow-hidden lg:block reveal" style="--d:240ms">
+          <Image
+            src={obra}
+            alt="Equipo de obra recorriendo una platea en construcción"
+            class="h-full w-full object-cover"
+            widths={[600, 900]}
+            sizes="40vw"
+          />
+        </div>
+      </div>
+
+      <ol class="lg:col-span-6 lg:col-start-7">
+        {steps.map((s, i) => (
+          <li class="group grid grid-cols-[4.5rem_1fr] border-t border-line py-9 last:border-b reveal sm:grid-cols-[6.5rem_1fr]">
+            <span class="lnum font-display text-[56px] font-light leading-none text-brown/80 transition-colors duration-500 group-hover:text-brown sm:text-[72px]">
+              {i + 1}
+            </span>
+            <div class="pt-2">
+              <p class="font-mono text-[11px] uppercase tracking-[0.25em] text-taupe">Etapa {String(i + 1).padStart(2, '0')}</p>
+              <h3 class="mt-2 text-[22px] font-medium uppercase tracking-[0.04em]">{s.t}</h3>
+              <p class="mt-2 text-ink/75">{s.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

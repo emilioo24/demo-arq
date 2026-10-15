@@ -1,0 +1,149 @@
+---
+import { contact, waLink } from '../data/site';
+
+const zones = ['Rosario', 'Funes', 'Roldán', 'Fisherton', 'Granadero Baigorria', 'Pérez', 'Ibarlucea', 'Villa Gobernador Gálvez'];
+---
+
+<section id="contacto" class="section bg-paper">
+  <div class="wrap grid gap-16 lg:grid-cols-12">
+    <div class="lg:col-span-5">
+      <p class="eyebrow reveal">Contacto</p>
+      <h2 class="display mt-6 text-[44px] sm:text-[56px] lg:text-[64px] reveal" style="--d:100ms">Hablemos de tu obra</h2>
+      <p class="lede mt-5 text-ink/80 reveal" style="--d:180ms">
+        Contame qué tenés en mente. La primera charla es para conocernos y entender tu proyecto.
+      </p>
+
+      <ul class="mt-12 reveal" style="--d:240ms">
+        <li class="border-t border-line">
+          <a href={waLink()} target="_blank" rel="noopener" class="group flex items-center justify-between py-5">
+            <span><span class="eyebrow block">WhatsApp</span><span class="mt-1 block text-[19px]">{contact.whatsappLabel}</span></span>
+            <span class="transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li class="border-t border-line">
+          <a href={contact.instagram} target="_blank" rel="noopener" class="group flex items-center justify-between py-5">
+            <span><span class="eyebrow block">Instagram</span><span class="mt-1 block text-[19px]">{contact.instagramLabel}</span></span>
+            <span class="transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li class="border-y border-line">
+          <a href={`mailto:${contact.email}`} class="group flex items-center justify-between py-5">
+            <span><span class="eyebrow block">Email</span><span class="mt-1 block text-[19px]">{contact.email}</span></span>
+            <span class="transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="mt-12 reveal" style="--d:300ms">
+        <p class="eyebrow">Zona de trabajo</p>
+        <p class="mt-3 font-display text-[22px] leading-snug">
+          {zones.join(' · ')} <span class="italic text-taupe">y alrededores.</span>
+        </p>
+      </div>
+    </div>
+
+    <form id="contact-form" class="bg-cream p-7 sm:p-10 lg:col-span-6 lg:col-start-7 lg:p-12 reveal" style="--d:160ms">
+      <p class="font-mono text-[11px] uppercase tracking-[0.25em] text-brown">Consulta</p>
+      <p class="mt-2 text-[15px] text-ink/70">Completá el formulario y se abre WhatsApp con tu mensaje listo para enviar.</p>
+
+      <div class="mt-8 grid gap-7 sm:grid-cols-2">
+        <label class="field sm:col-span-1">
+          <span>Nombre</span>
+          <input name="nombre" required autocomplete="name" />
+        </label>
+        <label class="field sm:col-span-1">
+          <span>Localidad</span>
+          <input name="localidad" autocomplete="address-level2" placeholder="Rosario" />
+        </label>
+      </div>
+
+      <fieldset class="mt-8">
+        <legend class="field-label">¿Qué tipo de proyecto?</legend>
+        <div class="mt-3 flex flex-wrap gap-2">
+          {['Obra nueva', 'Reforma', 'Interiorismo', 'Llave en mano'].map((t, i) => (
+            <label class="chip">
+              <input type="radio" name="tipo" value={t} checked={i === 0} class="sr-only" />
+              <span>{t}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <label class="field mt-8">
+        <span>Contame tu proyecto</span>
+        <textarea name="mensaje" rows="4" required placeholder="Tengo un terreno en Funes y quiero construir una casa de 3 dormitorios…"></textarea>
+      </label>
+
+      <button type="submit" class="btn btn-primary mt-10 w-full sm:w-auto">Enviar por WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .field { display: block; }
+  .field > span,
+  .field-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-taupe);
+  }
+  .field input,
+  .field textarea {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.6rem 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 30%, transparent);
+    font-size: 17px;
+    color: var(--color-ink);
+    border-radius: 0;
+    resize: vertical;
+    transition: border-color 0.3s;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: color-mix(in srgb, var(--color-taupe) 70%, transparent); }
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-bottom-color: var(--color-brown);
+  }
+  .chip span {
+    display: inline-block;
+    padding: 0.55rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent);
+    border-radius: 2px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .chip span:hover { border-color: var(--color-ink); }
+  .chip input:checked + span {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-on-dark);
+  }
+  .chip input:focus-visible + span {
+    outline: 1px solid var(--color-brown);
+    outline-offset: 3px;
+  }
+</style>
+
+<script>
+  import { waLink } from '../data/site';
+
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const text =
+      `Hola Fernanda, soy ${d.get('nombre')}` +
+      (d.get('localidad') ? ` (${d.get('localidad')})` : '') +
+      `. Te escribo por un proyecto de ${String(d.get('tipo')).toLowerCase()}.\n\n${d.get('mensaje')}`;
+    window.open(waLink(text), '_blank', 'noopener');
+  });
+</script>

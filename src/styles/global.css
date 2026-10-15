@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #E6DED4;
+  --color-paper: #F1EEE9;
+  --color-ink: #2A2420;
+  --color-brown: #6B4733;
+  --color-cognac: #8A5B3F;
+  --color-sand: #B8936C;
+  --color-taupe: #8C8279;
+  --color-overlay: rgba(38, 31, 27, 0.72);
+  --color-night: #2E2723;
+  --color-on-dark: #F4EFE8;
+  --color-line: rgba(42, 36, 32, 0.15);
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Jost", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  ::selection {
+    background: var(--color-sand);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 1px solid var(--color-brown);
+    outline-offset: 4px;
+  }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+  @media (min-width: 768px) {
+    .wrap { padding-inline: 48px; }
+  }
+
+  .section {
+    padding-block: 96px;
+  }
+  @media (min-width: 1024px) {
+    .section { padding-block: 144px; }
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-taupe);
+  }
+
+  .signature {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.02;
+  }
+
+  .h2-sans {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    line-height: 1.1;
+    font-size: clamp(30px, 4vw, 44px);
+  }
+
+  .h2-editorial {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    font-size: clamp(30px, 4vw, 44px);
+  }
+
+  .lede {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(21px, 2.2vw, 26px);
+    line-height: 1.35;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 1.75rem;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: background-color 0.35s var(--ease-soft), color 0.35s var(--ease-soft), border-color 0.35s var(--ease-soft);
+  }
+  .btn-primary {
+    background: var(--color-brown);
+    border-color: var(--color-brown);
+    color: var(--color-on-dark);
+  }
+  .btn-primary:hover {
+    background: var(--color-cognac);
+    border-color: var(--color-cognac);
+  }
+  .btn-ghost:hover {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-on-dark);
+  }
+  .btn-ghost-light {
+    color: var(--color-on-dark);
+  }
+  .btn-ghost-light:hover {
+    background: var(--color-on-dark);
+    color: var(--color-ink);
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.4s var(--ease-soft);
+  }
+  .link-underline:hover { background-size: 100% 1px; }
+
+  /* Zoom lento en fotos */
+  .zoom img {
+    transition: transform 1.6s var(--ease-soft);
+  }
+  .zoom:hover img { transform: scale(1.045); }
+}
+
+/* Fade-up al hacer scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1s var(--ease-soft), transform 1s var(--ease-soft);
+  transition-delay: var(--d, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Parallax suave del hero con scroll-driven animations (mejora progresiva) */
+@supports (animation-timeline: scroll()) {
+  .hero-media {
+    animation: hero-drift linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100vh;
+  }
+  @keyframes hero-drift {
+    to { transform: translateY(14vh) scale(1.06); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-media { animation: none !important; }
+  .zoom img { transition: none; }
+}
+
+.lnum {
+  font-variant-numeric: lining-nums;
+}

@@ -1,0 +1,73 @@
+---
+const myths = [
+  {
+    tag: 'Mitos de obra',
+    q: '¿Un arquitecto encarece tu obra?',
+    a: [
+      'Es al revés. Lo que encarece una obra son los cambios sobre la marcha, los materiales mal calculados y los trabajos que hay que rehacer.',
+      'Con un proyecto bien documentado y un presupuesto por etapas, cada peso tiene un destino. Los honorarios suelen recuperarse en lo que dejás de perder.',
+    ],
+  },
+  {
+    tag: 'Antes de construir',
+    q: '3 señales de que tu obra no está bien documentada',
+    list: ['Sin legajo técnico', 'Sin presupuesto por etapas', 'Sin un solo interlocutor'],
+    a: ['Si te pasa alguna de estas tres cosas, es momento de frenar y ordenar antes de seguir invirtiendo.'],
+  },
+  {
+    tag: 'Mitos de obra',
+    q: '¿Para una reforma chica no hace falta un arquitecto?',
+    a: [
+      'Una reforma chica también toca instalaciones, estructura y normativa. Un buen diagnóstico inicial evita que lo chico se vuelva grande.',
+      'Además, el diseño hace la diferencia entre “arreglar” un espacio y transformarlo.',
+    ],
+  },
+  {
+    tag: 'Antes de construir',
+    q: '¿Qué necesito para empezar?',
+    a: [
+      'Solo ganas de contarme tu idea. Con la escritura o boleto, una foto del terreno o la propiedad y una idea de presupuesto ya podemos hacer la primera reunión.',
+    ],
+  },
+];
+---
+
+<section id="mitos" class="section bg-cream">
+  <div class="wrap grid gap-14 lg:grid-cols-12">
+    <div class="lg:col-span-4">
+      <p class="eyebrow reveal">Mitos de obra · Antes de construir</p>
+      <h2 class="h2-sans mt-5 reveal" style="--d:100ms">Lo que nadie te explica</h2>
+      <p class="lede mt-5 text-brown reveal" style="--d:180ms">y yo te explico.</p>
+    </div>
+
+    <div class="lg:col-span-7 lg:col-start-6">
+      {myths.map((m, i) => (
+        <details class="group border-t border-line last-of-type:border-b reveal" style={`--d:${i * 80}ms`} open={i === 0}>
+          <summary class="flex cursor-pointer list-none items-start justify-between gap-6 py-8 [&::-webkit-details-marker]:hidden">
+            <div>
+              <p class="font-mono text-[11px] uppercase tracking-[0.25em] text-taupe">{String(i + 1).padStart(2, '0')} — {m.tag}</p>
+              <h3 class="mt-3 text-[22px] font-medium uppercase leading-snug tracking-[0.02em] sm:text-[26px]">{m.q}</h3>
+            </div>
+            <span class="relative mt-8 h-4 w-4 shrink-0" aria-hidden="true">
+              <span class="absolute left-0 top-1/2 h-px w-4 bg-ink"></span>
+              <span class="absolute left-1/2 top-0 h-4 w-px bg-ink transition-transform duration-500 group-open:rotate-90"></span>
+            </span>
+          </summary>
+          <div class="max-w-2xl space-y-4 pb-10 text-ink/80">
+            {m.list && (
+              <ol class="mb-6">
+                {m.list.map((l, j) => (
+                  <li class="flex gap-6 border-b border-line py-3 first:border-t">
+                    <span class="font-mono text-[11px] tracking-[0.2em] text-brown pt-1">{String(j + 1).padStart(2, '0')}</span>
+                    <span class="font-display text-[22px]">{l}</span>
+                  </li>
+                ))}
+              </ol>
+            )}
+            {m.a.map((p) => <p>{p}</p>)}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

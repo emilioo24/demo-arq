@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import hero from '../assets/img/hero.jpg';
+import { waLink } from '../data/site';
+---
+
+<section id="inicio" class="relative flex min-h-svh flex-col justify-end overflow-hidden bg-night text-on-dark">
+  <div class="absolute inset-0">
+    <Image
+      src={hero}
+      alt="Casa contemporánea con revestimiento de madera iluminada al atardecer"
+      class="hero-media h-full w-full object-cover"
+      widths={[800, 1280, 1600, 2000]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-night/45 via-transparent to-transparent"></div>
+  </div>
+
+  <div class="relative bg-overlay backdrop-blur-[2px]">
+    <div class="wrap grid gap-10 py-12 md:py-16 lg:grid-cols-12 lg:items-end lg:gap-12">
+      <div class="lg:col-span-8">
+        <p class="eyebrow !text-sand reveal">Arquitectura integral · Rosario y alrededores</p>
+        <h1 class="display mt-6 text-[46px] sm:text-[64px] lg:text-[88px] reveal" style="--d:120ms">
+          De la idea<br /><span class="italic normal-case tracking-[0.01em] font-normal">a las</span> llaves
+        </h1>
+      </div>
+      <div class="lg:col-span-4 reveal" style="--d:260ms">
+        <p class="lede text-on-dark/90">
+          Proyecto, gestión y ejecución de tu obra con una sola interlocutora.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#contacto" class="btn btn-primary">Contame tu proyecto</a>
+          <a href={waLink()} target="_blank" rel="noopener" class="btn btn-ghost-light">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="wrap flex items-center justify-between py-4">
+        <p class="signature text-on-dark/60">Fernanda Galantini · Arquitecta</p>
+        <p class="hidden font-mono text-[11px] uppercase tracking-[0.25em] text-on-dark/60 sm:block">
+          Obra nueva — Reformas — Interiorismo
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
