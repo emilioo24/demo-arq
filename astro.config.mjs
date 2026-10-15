@@ -4,6 +4,6 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://emilioo24.github.io',
-  base: '/fernanda-galantini',
+  base: '/demo-arq',
   vite: { plugins: [tailwindcss()] },
 });
